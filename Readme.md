@@ -1,12 +1,9 @@
 # Two players, you and Bob, are going to play against each other
 
-## Each player takes two cards each from the top of a randomly shuffled deck provided by our endpoint (<https://pickatale-backend-case.herokuapp.com/shuffle>)
-
 - You take the first two cards, Bob takes the next two
 - Calculate the total sum of each players cards
 - Numbered cards have the value on the card
-`Jack (J), Queen (Q) and King (K) each counts as 10 points
-Ace (A) counts as 11 points`
+  `Jack (J), Queen (Q) and King (K) each counts as 10 points Ace (A) counts as 11 points`
 
 - If either player has 21 points - blackjack - that player wins the round
 - Otherwise continue drawing cards following the following rules:
@@ -16,10 +13,40 @@ Ace (A) counts as 11 points`
 - Bob draws cards until the sum of his cards is higher than yours
 - if his cards exceed 21 points he looses
 
-## Endpoint
+## Endpoints
 
-1. POST /game  **Create a new game**
+1. POST /games **Create a new game**
 
-2. GET game/{id} **Get game status + details**
+2. GET games/{id} **Get game status + details**
 
-3. POST game/{id}/move **Make a new move + get results**
+3. GET games/{id}/move **Make a new move + get results**
+
+4. GET games/{id}/play **Play game till winner is found**
+
+## Usage
+
+### Run locally
+
+```properties
+yarn && yarn start
+```
+
+_Or_
+
+```properties
+npm install
+npm start
+```
+
+### Run tests
+
+```properties
+yarn && yarn test
+```
+
+_Or_
+
+```properties
+npm install
+npm run test
+```
