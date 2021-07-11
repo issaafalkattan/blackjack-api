@@ -1,0 +1,1 @@
+export const EXTERNAL_API_URL = 'https://pickatale-backend-case.herokuapp.com/shuffle';
