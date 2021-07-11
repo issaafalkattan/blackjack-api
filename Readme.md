@@ -13,15 +13,16 @@
 - Bob draws cards until the sum of his cards is higher than yours
 - if his cards exceed 21 points he looses
 
+
 ## Endpoints
 
-1. POST /games **Create a new game**
+1. POST <http://localhost:3000/blackjack/games> **Create a new game**
 
-2. GET games/{id} **Get game status + details**
+2. GET <http://localhost:3000/blackjack/games/{id>} **Get game status + details**
 
-3. GET games/{id}/move **Make a new move + get results**
+3. GET <http://localhost:3000/blackjack/games/{id}/move> **Make a new move + get results**
 
-4. GET games/{id}/play **Play game till winner is found**
+4. GET <http://localhost:3000/blackjack/games/{id}/play> **Play game till winner is found**
 
 ## Usage
 
