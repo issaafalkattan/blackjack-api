@@ -1,0 +1,9 @@
+{
+  "preset": "ts-jest",
+  "testRegex": "((\\.|/*.)(spec))\\.ts?$",
+  "transform": {
+    "^.+\\.(ts|tsx)?$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest"
+  }
+
+}

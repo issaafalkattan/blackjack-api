@@ -34,41 +34,32 @@ export const markGameWon = (game: IGameWithDeck, winner: 0 | 1) => {
 
 export const makeFirstMove = (game: IGameWithDeck) => {
   let updatedGame = { ...game };
-  const firstPlayerCards = [updatedGame.deck.pop(), updatedGame.deck.pop()];
-  const secondPlayerCards = [updatedGame.deck.pop(), updatedGame.deck.pop()];
+
+  const firstPlayerCards = [updatedGame.deck.shift(), updatedGame.deck.shift()];
+  const secondPlayerCards = [updatedGame.deck.shift(), updatedGame.deck.shift()];
 
   const [firstPlayerPoints, firstPlayerHistory] = calculatePoints(firstPlayerCards);
   const [secondPlayerPoints, secondPlayerHistory] = calculatePoints(secondPlayerCards);
+
+  updatedGame.players = [
+    { ...updatedGame.players[0], points: firstPlayerPoints, cards: firstPlayerHistory },
+    { ...updatedGame.players[1], cards: secondPlayerHistory, points: secondPlayerPoints },
+  ];
 
   if (firstPlayerPoints === 21) {
     updatedGame = markGameWon(updatedGame, 0);
   } else if (secondPlayerPoints === 21) {
     updatedGame = markGameWon(updatedGame, 1);
   } else {
-    updatedGame.players = [
-      {
-        ...updatedGame.players[0],
-        cards: firstPlayerHistory,
-        points: firstPlayerPoints,
-      },
-      {
-        ...updatedGame.players[1],
-        cards: secondPlayerHistory,
-        points: secondPlayerPoints,
-      },
-    ];
     updatedGame.status = 'ongoing';
   }
-
   return updatedGame;
 };
 
 export const makeSingleMove = (game: IGameWithDeck, player: 0 | 1) => {
-  console.log("Game so far", game.players, game.deck.length);
   const updatedGame = { ...game };
-  console.log("player", player);
-  const card = updatedGame.deck.pop();
-  console.log("player got", card);
+  const card = updatedGame.deck.shift();
+
   const cardPoints = getCardPoints(card);
   const cardSymbol = getCardSymbol(card);
 
@@ -81,10 +72,10 @@ export const makeSingleMove = (game: IGameWithDeck, player: 0 | 1) => {
   return updatedGame;
 };
 
-export const playUntilMax = (game: IGameWithDeck, player: 0 | 1, otherPlayerScore?: number) => {
+export const playUntilWon = (game: IGameWithDeck, player: 0 | 1, otherPlayerScore?: number) => {
   let updatedGame = { ...game };
 
-  while (updatedGame.players[player].points <= 17) {
+  while (updatedGame.players[player].points <= 16) {
     updatedGame = makeSingleMove(updatedGame, player);
   }
 
@@ -92,12 +83,12 @@ export const playUntilMax = (game: IGameWithDeck, player: 0 | 1, otherPlayerScor
     return markGameWon(game, switchPlayer(player));
   } else if (otherPlayerScore && updatedGame.players[player].points > otherPlayerScore) {
     return markGameWon(game, player);
-   } else {
-    return playUntilMax(updatedGame, switchPlayer(player), updatedGame.players[player].points);
+  } else {
+    return playUntilWon(updatedGame, switchPlayer(player), updatedGame.players[player].points);
   }
 };
 
 export const makeNextMove = (game: IGameWithDeck) => {
   const updatedGame = { ...game };
-  return playUntilMax(updatedGame, 0);
+  return playUntilWon(updatedGame, 0);
 };

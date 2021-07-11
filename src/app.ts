@@ -18,10 +18,6 @@ app.use(morgan('combined'));
 
 app.use('/', routes);
 
-app.get('/', (req, res) => {
-  res.send('The sedulous hyena ate the antelope!');
-});
-
 app.listen(port, () => console.log(`server is listening on ${port}`));
 
 app.use(errorHandler);

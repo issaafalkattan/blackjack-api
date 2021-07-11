@@ -4,6 +4,7 @@
   "jsRules": {},
   "rules": {
     "no-console": false,
-    "quotemark": false
+    "quotemark": false,
+    "max-line-length": false
   }
 } 
